@@ -1,5 +1,5 @@
 import streamlit as st
-from config import *
+from configu import *
 import webcam
 
 st.sidebar.header(PROJECT_NAME)

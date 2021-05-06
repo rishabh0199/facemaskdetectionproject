@@ -5,4 +5,4 @@ PRESS2 = 'PRESS FOR INSTRUCTION'
 PRESS3 = 'PRESS TO SEE DATASET SAMPLE'
 PRESS4 = 'PRESS FOR VIDEO BASED TEST'
 PRESS5 = 'PRESS FOR CAMERA BASED TEST'
-MENU_OPTION = ('About project','Instruction to use','Sample dataset','Video based test','Camera based test')
+MENU_OPTION = ('About project','Instruction to use','Sample dataset','realtime detection','Camera based test','image based test')
