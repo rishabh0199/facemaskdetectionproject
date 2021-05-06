@@ -78,7 +78,7 @@ if choice == 'image based test':
                 col2.image(path,use_column_width=True,caption='prediction')
             else:
                 st.sidebar.error('upload failed')
-# mask utaro to pehle ok sir try krunga hehehehe
+
 if choice  =='realtime detection':
     cnf = st.slider('confidence threshold',min_value=.1, max_value=1.0,value=.5)
     btn = st.button("start camera window")
