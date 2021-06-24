@@ -1,3 +1,4 @@
+from PIL import Image as Im
 import os
 import webcam
 import streamlit as st
@@ -36,7 +37,7 @@ choice = st.sidebar.radio("select option",MENU_OPTION)
 
 if choice == 'About project':
     st.title("About Our Project")
-    st.image('ac.gif')
+    st.image('acc.gif')
     st.info('''Face Mask Detection Platform utilizes Artificial Network to perceive if a person does/doesn't wear a mask.
 The application can be associated with any currentor new  cameras to identify individuals with/without a mask.​​
 By developing a face mask detection technique,
@@ -46,38 +47,66 @@ so we suggest people who not weared mask to wear  it to reduce the covid/
 
 
 if choice == 'Instruction to use':
-    st.title("how to use application")
+    st.title("HOW TO USE THE APPLICATION")
+    st.info(''' step 1. install the software on your computer.\n''')
+    st.image('image/Softwareinstall.jpeg')
+    st.info('''step 2. Connect your computer with webcam.\n''')
+    st.image('image/webcamset.jpeg')
+    st.info('''step 4. click on the realtime detection if you want detection through live stream.\n''')
+    st.info('''->On the right side a panel is open now click on "start camera window" button to start detection.\n''')
+    st.image('image/instruction_realtime.PNG')
+    st.info('''->here you go.......\n''')
+    st.image('image/9.PNG')
+    st.info('''step 5.click on image based test if you want to detect through providing images.\n''')
+    st.image('image/instruction_imgbased.PNG')
+    st.info('''->on the right hand side now you see "Browse File" button to upload image.\n''')
+    st.image('image/instruction_imgbasedbrowse.PNG')
+    st.info('''->now click on browse file button and upload your image for detection of mask.\n''')
+    st.image('image/instruction_imgbasedresult.PNG')
+    st.image('image/instruction_imgbasedresultmasked.PNG')
+    
 
 
 if choice == 'Sample dataset':
-    st.title("Datset sample")
+    st.image('sampleImage/a.jpeg')
+    st.image('sampleImage/b.jpeg')
+    st.image('sampleImage/c.jpeg')
+    st.image('sampleImage/d.jpeg')
+    st.image('sampleImage/e.jpeg')
+    st.image('sampleImage/f.jpeg')
+    st.image('sampleImage/g.jpeg')
+    st.image('sampleImage/h.jpeg')
+    st.image('sampleImage/i.jpeg')
+    st.image('sampleImage/j.jpeg')
 
 
-if choice == 'Camera based test':
-    st.title("real time camera based test")
-    btn = st.button('start realtime AI camera')
-    if btn:
-        webcam.load_camera(num=0)
+#if choice == 'Camera based test':
+ #   st.title("real time camera based test")
+  #  btn = st.button('start realtime AI camera')
+   # if btn:
+    #    webcam.load_camera(num=0)
 
 
 if choice == 'image based test':
     st.title("upload images for image based test")
     st.subheader('select an image')
-    img = st.file_uploader("browse to select",type=['jpg','png'])
+    img = st.file_uploader("browse to select",type=['jpg','png','jpeg'])
     if img:
-        path = os.path.join('images',img.name)
-        with open(path,'wb') as f:
-            f.write(img.getbuffer())
-            status = save_image(img,path)
-            if status:
-                st.sidebar.success("file uploaded")
-                col1 ,col2 = st.beta_columns(2)
-                col1.image(path,use_column_width=True,caption='original')
-                out_img = detect(path)
-                cv2.imwrite(path,out_img)
-                col2.image(path,use_column_width=True,caption='prediction')
-            else:
-                st.sidebar.error('upload failed')
+        im = Im.open(img)
+        # create a address for image path
+        path = os.path.join("images",img.name)
+        # save file to upload folder
+        im.save(path,format=img.type.split('/')[1])
+        status = save_image(img,path)
+        if status:
+            st.sidebar.success("file uploaded")
+            col1 ,col2 = st.beta_columns(2)
+            col1.image(path,use_column_width=True,caption='original')
+            out_img = detect(path)
+            cv2.imwrite(path,out_img)
+            col2.image(path,use_column_width=True,caption='prediction')
+        else:
+            st.sidebar.error('upload failed')
 
 if choice  =='realtime detection':
     cnf = st.slider('confidence threshold',min_value=.1, max_value=1.0,value=.5)
